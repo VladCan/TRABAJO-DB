@@ -1,0 +1,15 @@
+
+
+RUC               RAZON SOCIAL                              DEPARTAMENTO           DISTRITO                 DIRECCION
+20454709030,DECORACIONES CORTIMIN E.I.R.L.,           Arequipa               ,Arequipa                  ,Nro. -- Int. 9 Mercado San Camilo (Seccion Telas-Lado Alto de L.a Luna)
+20341841357,LATAM AIRLINES PERU S.A.,                 Lima                   ,Miraflores                ,Av. Santa Cruz Nro. 381 (Piso 6 Oficinas Corporativas)
+20109072177,CENCOSUD RETAIL PERU S.A.,                Lima                   ,Miraflores                ,Cal. Augusto Angulo Nro. 130
+20100047218,BANCO DE CREDITO DEL PERU,                Lima                   ,La Molina                 ,Cal. Centenario Nro. 156
+20170072465,SOCIEDAD MINERA CERRO VERDE S.A.A.,       Arequipa               ,Arequipa                  ,Cal. Jacinto Ibañez Nro. 315
+20508565934,HIPERMERCADOS TOTTUS S.A,                 Lima                   ,Surquillo                 ,Av. Angamos Este Nro. 1805 Int. P10 (Piso 10 Of 5 y Piso 11 Of 6a)
+20131257750,SEGURO SOCIAL DE SALUD,                   Lima                   ,Jesus Maria               ,Av. Domingo Cueto Nro. 120
+20100053455,BANCO INTERNACIONAL DEL PERU-INTERBANK,   Lima                   ,La Victoria               ,Av. Carlos Villaran Nro. 140
+20467534026,AMERICA MOVIL PERU S.A.C,                 Lima                   ,La Victoria               ,Av. Nicolas Arriola Nro. 480
+20100017149,PANAMERICANA TELEVISION S A,              Lima                   ,Lima                      ,Av. Alejandro Tirado Nro. 217 Dpto. 1001
+20194541008,EMPRESA DE TRANSPORTES,                   Lima                   ,Villa el Salvador         ,Av. Lima Km. 31.5 Mza. A2 Lote. a (Pista Atocongo - Lt. A2 - A3 - A4)
+20108068281,CAJA DE PENSIONES MILITAR POLICIAL,       Lima                   ,San Isidro		        ,Av. Jorge Basadre Nro. 950

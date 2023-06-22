@@ -1,0 +1,52 @@
+#Conbierte los distritos de lima en ubigeos solo lima y callao cercado que es CALLAO
+
+def convertir_lugar_a_numero(lugares):
+    diccionario_lugares = {
+        'LIMA': '140101',
+        'ANCON': '140102',
+        'ATE': '140103',
+        'BARRANCO': '140125',
+        'BREÑA': '140104',
+        'CARABAYLLO': '140105',
+        'CHACLACAYO': '140107',
+        'CHORRILLOS': '140108',
+        'CIENEGUILLA': '140139',
+        'COMAS': '140106',
+        'EL AGUSTINO': '140135',
+        'INDEPENDENCIA': '140134',
+        'JESUS MARIA': '140133',
+        'LA MOLINA': '140110',
+        'LA VICTORIA': '140109',
+        'LINCE': '140111',
+        'LOS OLIVOS': '140142',
+        'LURIGANCHO': '140112',
+        'LURIN': '140113',
+        'MAGDALENA DEL MAR': '140114',
+        'PUEBLO LIBRE': '140117',
+        'MIRAFLORES': '140115',
+        'PACHACAMAC': '140116',
+        'PUCUSANA': '140118',
+        'PUENTE PIEDRA': '140119',
+        'PUNTA HERMOSA': '140120',
+        'PUNTA NEGRA': '140121',
+        'RIMAC': '140122',
+        'SAN BARTOLO': '140123',
+        'SAN BORJA': '140140',
+        'SAN ISIDRO': '140124',
+        'SAN JUAN DE LURIGANCHO': '140137',
+        'SAN JUAN DE MIRAFLORES': '140136',
+        'SAN LUIS': '140138',
+        'SAN MARTIN DE PORRES': '140126',
+        'SAN MIGUEL': '140127',
+        'SANTA ANITA': '140143',
+        'SANTA MARIA DEL MAR': '140128',
+        'SANTA ROSA': '140129',
+        'SANTIAGO DE SURCO': '140130',
+        'SURQUILLO': '140131',
+        'VILLA EL SALVADOR': '140141',
+        'VILLA MARIA DEL TRIUNFO': '140132',
+        'CALLAO':'240101'
+    }
+
+    lugares_actualizados = [diccionario_lugares[lugar] if lugar in diccionario_lugares else lugar for lugar in lugares]
+    return lugares_actualizados
