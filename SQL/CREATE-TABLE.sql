@@ -58,9 +58,9 @@ LOGGING;
 ALTER TABLE derechohabiente ADD CONSTRAINT derechohabiente_pk PRIMARY KEY ( id_derechohabiente );
 
 CREATE TABLE distrito (
-    id_distrito  VARCHAR2(2 BYTE) NOT NULL,
-    nombre       VARCHAR2(30 BYTE) NOT NULL,
-    id_provincia VARCHAR2(2 BYTE) NOT NULL
+    id_distrito  VARCHAR2(6 BYTE) NOT NULL,
+    nombre       VARCHAR2(60 BYTE) NOT NULL,
+    id_provincia VARCHAR2(4 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -135,7 +135,7 @@ LOGGING;
 ALTER TABLE prestacion_economica ADD CONSTRAINT prestacion_economica_pk PRIMARY KEY ( id_prestacion_economica );
 
 CREATE TABLE provincia (
-    id_provincia    VARCHAR2(2 BYTE) NOT NULL,
+    id_provincia    VARCHAR2(4 BYTE) NOT NULL,
     nombre          VARCHAR2(30 BYTE) NOT NULL,
     id_departamento VARCHAR2(2 BYTE) NOT NULL
 )
@@ -266,10 +266,10 @@ ALTER TABLE provincia
         REFERENCES departamento ( id_departamento )
     NOT DEFERRABLE;
 
-ALTER TABLE provincia
+/*ALTER TABLE provincia
     ADD CONSTRAINT provincia_distrito_fk FOREIGN KEY ( id_distrito )
         REFERENCES distrito ( id_distrito )
-    NOT DEFERRABLE;
+    NOT DEFERRABLE;*/
 
 ALTER TABLE requisito
     ADD CONSTRAINT requisito_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
