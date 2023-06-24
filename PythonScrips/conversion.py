@@ -45,7 +45,8 @@ def convertir_lugar_a_numero(lugares):
         'SURQUILLO': '140131',
         'VILLA EL SALVADOR': '140141',
         'VILLA MARIA DEL TRIUNFO': '140132',
-        'CALLAO':'240101'
+        'CALLAO':'240101',
+        'HUARAL':'140801'
     }
 
     lugares_actualizados = [diccionario_lugares[lugar] if lugar in diccionario_lugares else lugar for lugar in lugares]

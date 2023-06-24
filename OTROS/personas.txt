@@ -1,33 +1,24 @@
-dni tipo_solicitante(a,d), nombres , apellido paterno, aplillfdo ,aterno , fecha _nac  direccion id_ubigeo
-
-         
-DNI      | Tipo Solicitante | Nombres         | Apellido Paterno | Apellido Materno | Fecha de Nacimiento | Dirección
-------------------------------------------------------------------------------------------------------------------------------
-23456789, D,,María           , Rodríguez        , López            , 1987/08/02,		 |  AV Amancaes 700 0500 007 Urb. Ur Ur Ciudad Y Campo; Rímac - Lima
-67901234, A,,Ana             , Torres           , Ramírez          , 1975/12/20,		 |  ND Javier Prado Mz. D1 Lt. 14 1073 007 Urb. Ur Los Portales De J.Prado Et.2; Ate-Vitarte - Lima
-56789012, D,,Juan Carlos     , González         , Martínez         , 1983/04/06,	     |  AV MARISCAL ANTONIO JOSE DE SUCRE 455 CDR:4 UR :ORBEA ; Magdalena del Mar - Lima
-34567890, A,,Luis            , García           , Pérez            , 1998/10/10,		 |  ND Torrico Emilio Mz. 19 Lt. 10 0451 054 Urb. Ah ; Comas - Lima
-45789023, A,,Carlos          , Pérez            , Gómez            , 1992/03/15,         |  JR MANCO CAPAC 387 CDR:3 PI :1 RS :OYAGUE, Magdalena del Mar - Lima
-34567890, D,,María           , Rodríguez        , López            , 1975/09/02,         |  NT 8A CDR:0 MZ :N2 LT :1 PI :2 INT:202 AH :SAU L CANTORAL HUAMANI; San Juan de Lurigancho - Lima
-67901234, A,,Ana             , Torres           , Ramírez          , 1988/12/20,         |  Mz. K Lt. 21 Urb. Pj Pj Sta. Isabel De Villa; Chorrillos - Lima
-56789012, D,,Juan Carlos     , González         , Martínez         , 1982/06/06,         |  AV Nicolas De Ayllon S/N Mz. A Lt. 32 Urb. Ah Santa Iluminata; Ate-Vitarte - Lima
-34567901, A,,Luis            , García           , Pérez            , 1995/10/10,         |  NT SINCHI ROCA MZ :D LT :1 SCT:0228 MZT:008 UR :UR LAS MORERAS; La Perla - Lima
-45678902, D,,Laura           , Jiménez          , Sánchez          , 1987/07/14,         |  AV San Juan S/N Mz. B Lt. 11 Gr. Gr; Santiago de Surco - Lima
-23456789, A,,Pedro           , Rivera           , Torres           , 1973/05/01,         |  Mz. A Lt. 20 0185 023 Urb. Ah Ah Coronel Francisco Bolognesi; Callao Cercado - Lima
-56789034, A,,Andrea          , Silva            , Morales          , 1996/08/18,         |  CL MZ :T LT :2 AH :SANTA ROSA 0; Ventanilla - Lima
-45678912, D,,José            , Torres           , Rodríguez        , 1980/11/30,         |  NT MZ :U LT :18 PI :2 SCT:0646 MZT:049 UR : UR VILLA VICTORIA; Surquillo - Lima
-67901245, A,,Gabriela        , Mendoza          , García           , 1991/07/02,         |  CL MZ :A LT :24 UR :TILDA 0; Ate-Vitarte - Lima
-34567891, D,,Daniel          , López            , Ramírez          , 1985/04/25,         |  Mz. N Lt. 12 0180 035 Urb. As Viv. Las Fresas; Callao Cercado - Lima
-45678923, A,,Ana María       , González         , Pérez            , 1999/09/08,         |  CL TABARES SANTIAGO 186 INT:A UR :HUASCAR PISO 2; Santa Anita - Lima
-56789023, A,,Marcelo         , Ríos             , Navarro          , 1983/09/14,         |  Mz. 51a Lt. 21 0156 063 Urb. Ah Upis Marquez ;Callao Cercado - Lima
-45678921, D,,Valentina       , Paredes          , Molina           , 1997/07/25,         |  
-56789032, A,,Diego           , Campos           , Flores           , 1974/10/12,         |  
-34567892, D,,Camila          , Mora             , Silva            , 1990/03/27,         |  
-45678934, A,,Andrés          , Vargas           , Morales          , 1988/05/09,         |  
-56789043, D,,Natalia         , Herrera          , Castro           , 1976/07/17,         |  
-34567903, A,,Gabriela        , Soto             , Ríos             , 1994/09/24,         |  
-67901236, D,,Sebastián       , Valencia         , Mora             , 1981/02/16,         |  
-56789045, A,,Paula           , Navarro          , Morales          , 1998/10/05,         |  
-45678930, D,,Andrés          , Ríos             , Castro           , 1972/11/29,         |  
-34567893, A,,Valeria         , Morales          , Herrera          , 1991/06/03,         |  
-45678903, D,,Sofía           , Morales          , Vargas           , 1977/11/08,         |	
+23456789,D,María,Rodríguez,López,1987/08/02,'AV Amancaes 700 0500 007 Urb. Ur Ur Ciudad Y Campo','RIMAC - LIMA','RIMAC','140122'
+34567890,A,Luis,García,Pérez,1998/10/10,'AV Amancaes 700 0500 007 Urb. Ur Ur Ciudad Y Campo','RIMAC - LIMA','RIMAC','140122'
+45789023,A,Carlos,Pérez,Gómez,1992/03/15,'ND Javier Prado Mz. D1 Lt. 14 1073 007 Urb. Ur Los Portales De J.Prado Et.2','ATE-VITARTE - LIMA','ATE','140103'
+23656789,A,Pedro,Rivera,Torres,1973/05/01,'AV MARISCAL ANTONIO JOSE DE SUCRE 455 CDR:4 UR :ORBEA','MAGDALENA DEL MAR - LIMA','MAGDALENA DEL MAR','140114'
+56789034,A,Andrea,Silva,Morales,1996/08/18,'ND Torrico Emilio Mz. 19 Lt. 10 0451 054 Urb. Ah','COMAS - LIMA','COMAS','140106'
+45678912,A,José,Torres,Rodríguez,1980/11/30,'Mz. N Lt. 12 0180 035 Urb. As Viv. Las Fresas','CALLAO CERCADO - LIMA','CALLAO','240101'
+56789023,A,Valeria,Ríos,Navarro,1983/09/14,'Mz. N Lt. 12 0180 035 Urb. As Viv. Las Fresas','CALLAO CERCADO - LIMA','CALLAO','240101'
+34567891,D,Daniel,López,Ramírez,1985/04/25,'Mz. K Lt. 21 Urb. Pj Pj Sta. Isabel De Villa','CHORRILLOS - LIMA','CHORRILLOS','140108
+45678923,A,Ana María,González,Pérez,1999/09/08,'Mz. K Lt. 21 Urb. Pj Pj Sta. Isabel De Villa','CHORRILLOS - LIMA','CHORRILLOS','140108'
+45678921,D,Valentina,Paredes,Molina,1997/07/25,'CL MZ :K LT :42 PI :1 INT:A PJ :SANTA ISABEL DE VILLA 0','CHORRILLOS - LIMA','CHORRILLOS','140108'
+56789032,A,Diego,Campos,Flores,1974/10/12,'Mz. S Lt. 1 Urb. Cv Cv Pablo Patron','LURIGANCHO - LIMA','LURIGANCHO','140112'
+34567892,D,Camila,Mora,Silva,1990/03/27,'Mz. S Lt. 1 Urb. Cv Cv Pablo Patron','LURIGANCHO - LIMA','LURIGANCHO','140112'
+45678934,A,Andrés,Vargas,Morales,1988/05/09,'JR GENERAL FRANCISCO VIDAL LAOS 261 CDR:2 UR :CERCADO DE MIRAFLORES','MIRAFLORES - LIMA','MIRAFLORES','140115'
+56789043,D,Natalia,Herrera,Castro,1976/07/17,'JR GENERAL FRANCISCO VIDAL LAOS 261 CDR:2 UR :CERCADO DE MIRAFLORES','MIRAFLORES - LIMA','MIRAFLORES','140115'
+54567903,D,Gabriela,Soto,Ríos,1994/09/24,'NT MZ :B LT :18 PO :PO LAS FLORES DE VILLA S/N','HUARAL - LIMA','HUARAL','140801'
+47901236,A,Sebastián,Valencia,Mora,1991/02/16,'NT MZ :B LT :18 PO :PO LAS FLORES DE VILLA S/N','HUARAL - LIMA','HUARAL','140801'
+46789045,D,Paula,Navarro,Morales,1978/10/05,'CL Pedregal 136 0503 119 Urb. 0503','SAN MARTIN DE PORRES - LIMA','SAN MARTIN DE PORRES','140126'
+45678930,A,Andrés,Ríos,Castro,1972/11/29,'CL Pedregal 136 0503 119 Urb. 0503','SAN MARTIN DE PORRES - LIMA','SAN MARTIN DE PORRES','140126'
+44567893,D,Valeria,Morales,Herrera,1976/06/03,'CL PIMENTEL 207 CDR:2 PI :3 INT:303 UR :SAN CARLOS ET.1','COMAS - LIMA','COMAS','140106'
+35678903,A,Sevastian,Morales,Vargas,1977/11/08,'CL PIMENTEL 207 CDR:2 PI :3 INT:303 UR :SAN CARLOS ET.1','COMAS - LIMA','COMAS','140106'
+67901234,D,Ana,Torres,Ramírez,1985/12/20,'Mz. 24 Lt. 5 0734 046 Urb. Ah Ah Bayovar Zn.2','SAN JUAN DE LURIGANCHO - LIMA','SAN JUAN DE LURIGANCHO','140137'
+56789012,A,Juan Carlos,González,Martínez,1982/06/06,'Mz. 24 Lt. 5 0734 046 Urb. Ah Ah Bayovar Zn.2','SAN JUAN DE LURIGANCHO - LIMA','SAN JUAN DE LURIGANCHO','140137'
+34567901,A,Luis,García,Pérez,1975/10/10,'JR Jose De La Mar 497 0455 125 Urb. Ur Santa Luzmila','COMAS - LIMA','COMAS','140106'
+45678902,D,Laura,Jiménez,Sánchez,1987/07/14,'JR Jose De La Mar 497 0455 125 Urb. Ur Santa Luzmila','COMAS - LIMA','COMAS','140106'

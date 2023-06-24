@@ -8,7 +8,7 @@ import requests
 from conversion import convertir_lugar_a_numero
 from unidecode import unidecode
 
-nombre = "rosas"
+nombre = "pedro"
 distrito = "lima"
 
 website = f"http://www.paginasblancas.pe/persona/s/{nombre}/{distrito}"
@@ -20,15 +20,19 @@ resultado = requests.get(website)
 
 content = resultado.text
 
+patron_nombre=r'<a class.*?>(.*?)<\/a>'
 patron_direction = r'<span itemprop="streetAddress">\s*(.*?)\s*</span>'
 patron_localidad = r'<span itemprop="addressLocality">\s*([\w\s\-\'áéíóúÁÉÍÓÚ]+)'
 
-
-localidades = re.findall(patron_localidad, content)
+nombres = re.findall(patron_nombre,content)
 direcciones = re.findall(patron_direction, content)
+localidades = re.findall(patron_localidad, content)
+
+
 direcciones_limpias = [direccion.strip() for direccion in direcciones]
 localidades_sin_acentos = [unidecode(localidad) for localidad in localidades]
 localidades_mayusculas = [localidad.upper() for localidad in localidades_sin_acentos]
+
 
 
 distritos = []
@@ -48,8 +52,8 @@ if len(direcciones_limpias) != len(localidades):
     print(len(localidades)+"LOCALIDADES")
    
 else:
-    for direccione, localidad,distrito,ubigeo,procincia in zip(direcciones_limpias,localidades_mayusculas,distritos_actualizados,ubigeos,procincias):
-        print("'"+direccione+"','"+localidad+"','"+distrito+"','"+ubigeo+"','"+procincia+"'\n")
+    for nombre,direccione, localidad,distrito,ubigeo,procincia in zip(nombres,direcciones_limpias,localidades_mayusculas,distritos_actualizados,ubigeos,procincias):
+        print("'"+nombre+"',"+"'"+direccione+"',"+ubigeo+"'\n")
 
 
 
