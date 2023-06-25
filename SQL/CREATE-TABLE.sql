@@ -1,6 +1,7 @@
 CREATE TABLE asegurado (
     id_asegurado NUMBER(10) NOT NULL,
-    dni          NUMBER(8) NOT NULL
+    dni          NUMBER(8) NOT NULL,
+	ruc           NUMBER(11) NOT NULL
 )
 LOGGING;
 
@@ -68,8 +69,8 @@ ALTER TABLE distrito ADD CONSTRAINT distrito_pk PRIMARY KEY ( id_distrito );
 
 CREATE TABLE empleador (
     ruc          NUMBER(11) NOT NULL,
-    id_asegurado NUMBER(10) NOT NULL,
     razon_social VARCHAR2(100 BYTE) NOT NULL,
+	direccion        VARCHAR2(150 BYTE) NOT NULL,
     id_ubigeo    VARCHAR2(6 BYTE) NOT NULL
 )
 LOGGING;
@@ -185,7 +186,12 @@ ALTER TABLE asegurado
     ADD CONSTRAINT asegurado_persona_fk FOREIGN KEY ( dni )
         REFERENCES persona ( dni )
     NOT DEFERRABLE;
-
+	
+ALTER TABLE asegurado
+    ADD CONSTRAINT asegurado_ruc_empleador_fk FOREIGN KEY ( ruc	)
+        REFERENCES empleador ( ruc )
+    NOT DEFERRABLE;
+	
 ALTER TABLE boleta
     ADD CONSTRAINT boleta_sepelio_fk FOREIGN KEY ( id_sepelio )
         REFERENCES sepelio ( id_sepelio )
@@ -214,11 +220,6 @@ ALTER TABLE derechohabiente
 ALTER TABLE distrito
     ADD CONSTRAINT distrito_provincia_fk FOREIGN KEY ( id_provincia )
         REFERENCES provincia ( id_provincia )
-    NOT DEFERRABLE;
-
-ALTER TABLE empleador
-    ADD CONSTRAINT empleador_asegurado_fk FOREIGN KEY ( id_asegurado )
-        REFERENCES asegurado ( id_asegurado )
     NOT DEFERRABLE;
 
 ALTER TABLE empleador
