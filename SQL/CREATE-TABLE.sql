@@ -1,11 +1,10 @@
 CREATE TABLE asegurado (
-    id_asegurado NUMBER(10) NOT NULL,
-    dni          NUMBER(8) NOT NULL,
+    dni_asegurado         NUMBER(8) NOT NULL,
 	ruc           NUMBER(11) NOT NULL
 )
 LOGGING;
 
-ALTER TABLE asegurado ADD CONSTRAINT asegurado_pk PRIMARY KEY ( id_asegurado );
+ALTER TABLE asegurado ADD CONSTRAINT asegurado_pk PRIMARY KEY ( dni_asegurado );
 
 CREATE TABLE boleta (
     id_boleta     NUMBER(8) NOT NULL,
@@ -49,14 +48,13 @@ LOGGING;
 ALTER TABLE departamento ADD CONSTRAINT departamento_pk PRIMARY KEY ( id_departamento );
 
 CREATE TABLE derechohabiente (
-    id_derechohabiente NUMBER(10) NOT NULL,
-    id_asegurado       NUMBER(10) NOT NULL,
-    dni                NUMBER(8) NOT NULL,
+    dni_derechohabiente NUMBER(10) NOT NULL,
+    dni_asegurado       NUMBER(8) NOT NULL,
     parentesco         CHAR(1 BYTE) NOT NULL
 )
 LOGGING;
 
-ALTER TABLE derechohabiente ADD CONSTRAINT derechohabiente_pk PRIMARY KEY ( id_derechohabiente );
+ALTER TABLE derechohabiente ADD CONSTRAINT derechohabiente_pk PRIMARY KEY ( dni_derechohabiente );
 
 CREATE TABLE distrito (
     id_distrito  VARCHAR2(6 BYTE) NOT NULL,
@@ -183,9 +181,9 @@ LOGGING;
 ALTER TABLE ubigeo ADD CONSTRAINT ubigeo_pk PRIMARY KEY ( id_ubigeo );
 
 ALTER TABLE asegurado
-    ADD CONSTRAINT asegurado_persona_fk FOREIGN KEY ( dni )
+    ADD CONSTRAINT asegurado_persona_fk FOREIGN KEY ( dni_asegurado )
         REFERENCES persona ( dni )
-    NOT DEFERRABLE;
+    NOT DEFERRABLE
 	
 ALTER TABLE asegurado
     ADD CONSTRAINT asegurado_ruc_empleador_fk FOREIGN KEY ( ruc	)
@@ -208,12 +206,12 @@ ALTER TABLE condicion
     NOT DEFERRABLE;*/
 
 ALTER TABLE derechohabiente
-    ADD CONSTRAINT derechohabiente_asegurado_fk FOREIGN KEY ( id_asegurado )
-        REFERENCES asegurado ( id_asegurado )
+    ADD CONSTRAINT derechohabiente_asegurado_fk FOREIGN KEY ( dni_asegurado )
+        REFERENCES asegurado ( dni_asegurado )
     NOT DEFERRABLE;
 
 ALTER TABLE derechohabiente
-    ADD CONSTRAINT derechohabiente_persona_fk FOREIGN KEY ( dni )
+    ADD CONSTRAINT derechohabiente_persona_fk FOREIGN KEY ( dni_derechohabiente	)
         REFERENCES persona ( dni )
     NOT DEFERRABLE;
 
