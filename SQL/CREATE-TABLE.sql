@@ -63,7 +63,7 @@ CREATE TABLE distrito (
 )
 LOGGING;
 
-ALTER TABLE distrito ADD CONSTRAINT distrito_pk PRIMARY KEY ( id_distrito );
+ALTER TABLE distrito ADD CONSTRAINT id_distrito_pk PRIMARY KEY ( id_distrito );
 
 CREATE TABLE empleador (
     ruc          NUMBER(11) NOT NULL,
