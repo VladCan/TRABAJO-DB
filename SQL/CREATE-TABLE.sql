@@ -32,7 +32,7 @@ CREATE TABLE condicion (
     id_condicion            NUMBER(10) NOT NULL,
     descripcion             VARCHAR2(150 BYTE) NOT NULL,
     cumplimiento            CHAR(1 BYTE) NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -77,7 +77,7 @@ ALTER TABLE empleador ADD CONSTRAINT empleador_pk PRIMARY KEY ( ruc );
 
 CREATE TABLE incapacidad_temporal (
     id_incapacidad_temporal NUMBER(10) NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL,
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL,
     id_citt                 NUMBER(10) NOT NULL
 )
 LOGGING;
@@ -87,7 +87,7 @@ ALTER TABLE incapacidad_temporal ADD CONSTRAINT incapacidad_temporal_pk PRIMARY 
 CREATE TABLE lactancia (
     id_lactancia            NUMBER(10) NOT NULL,
     certificado_nacimiento  DATE NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL,
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL,
     vinculo_laboral         CHAR(1 BYTE) NOT NULL
 )
 LOGGING;
@@ -97,7 +97,7 @@ ALTER TABLE lactancia ADD CONSTRAINT lactancia_pk PRIMARY KEY ( id_lactancia );
 CREATE TABLE maternidad (
     id_maternidad           NUMBER(10) NOT NULL,
     certificado_nacimiento  DATE NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -118,20 +118,15 @@ LOGGING;
 ALTER TABLE persona ADD CONSTRAINT persona_pk PRIMARY KEY ( dni );
 
 CREATE TABLE prestacion_economica (
-    id_prestacion_economica NUMBER(10) NOT NULL,
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL,
     id_solicitud            NUMBER(10) NOT NULL,
-    dni                     NUMBER(8) NOT NULL,
     monto                   NUMBER(5, 2) NOT NULL,
     inicio_subsidio         DATE NOT NULL,
-    fin_subsidio            DATE NOT NULL,
-    tipo_prestacion         CHAR(1 BYTE) NOT NULL,
-    fecha_con               DATE NOT NULL,
-    fecha_cese              DATE NOT NULL,
-    tipo_solicitante        CHAR(1 BYTE) NOT NULL
+    fin_subsidio            DATE NOT NULL
 )
 LOGGING;
 
-ALTER TABLE prestacion_economica ADD CONSTRAINT prestacion_economica_pk PRIMARY KEY ( id_prestacion_economica );
+ALTER TABLE prestacion_economica ADD CONSTRAINT tipo_prestacion_pk PRIMARY KEY ( tipo_prestacion );
 
 CREATE TABLE provincia (
     id_provincia    VARCHAR2(4 BYTE) NOT NULL,
@@ -146,7 +141,7 @@ CREATE TABLE requisito (
     id_requisito            NUMBER(10) NOT NULL,
     descripcion             VARCHAR2(150 BYTE) NOT NULL,
     cumplimiento            CHAR(1 BYTE) NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -154,7 +149,7 @@ ALTER TABLE requisito ADD CONSTRAINT requisito_pk PRIMARY KEY ( id_requisito );
 
 CREATE TABLE sepelio (
     id_sepelio              NUMBER(10) NOT NULL,
-    id_prestacion_economica NUMBER(10) NOT NULL
+    tipo_prestacion         CHAR(10 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -183,7 +178,7 @@ ALTER TABLE ubigeo ADD CONSTRAINT ubigeo_pk PRIMARY KEY ( id_ubigeo );
 ALTER TABLE asegurado
     ADD CONSTRAINT asegurado_persona_fk FOREIGN KEY ( dni_asegurado )
         REFERENCES persona ( dni )
-    NOT DEFERRABLE
+    NOT DEFERRABLE;
 	
 ALTER TABLE asegurado
     ADD CONSTRAINT asegurado_ruc_empleador_fk FOREIGN KEY ( ruc	)
@@ -196,8 +191,8 @@ ALTER TABLE boleta
     NOT DEFERRABLE;
 
 ALTER TABLE condicion
-    ADD CONSTRAINT condicion_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT condicion_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 /*ALTER TABLE departamento
@@ -231,18 +226,18 @@ ALTER TABLE incapacidad_temporal
     NOT DEFERRABLE;
 
 ALTER TABLE incapacidad_temporal
-    ADD CONSTRAINT incapacidad_temporal_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT incapacidad_temporal_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE lactancia
-    ADD CONSTRAINT lactancia_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT lactancia_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE maternidad
-    ADD CONSTRAINT maternidad_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT maternidad_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE persona
@@ -250,10 +245,6 @@ ALTER TABLE persona
         REFERENCES ubigeo ( id_ubigeo )
     NOT DEFERRABLE;
 
-ALTER TABLE prestacion_economica
-    ADD CONSTRAINT prestacion_economica_persona_fk FOREIGN KEY ( dni )
-        REFERENCES persona ( dni )
-    NOT DEFERRABLE;
 
 ALTER TABLE prestacion_economica
     ADD CONSTRAINT prestacion_economica_solicitud_fk FOREIGN KEY ( id_solicitud )
@@ -271,13 +262,13 @@ ALTER TABLE provincia
     NOT DEFERRABLE;*/
 
 ALTER TABLE requisito
-    ADD CONSTRAINT requisito_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT requisito_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE sepelio
-    ADD CONSTRAINT sepelio_prestacion_economica_fk FOREIGN KEY ( id_prestacion_economica )
-        REFERENCES prestacion_economica ( id_prestacion_economica )
+    ADD CONSTRAINT sepelio_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE solicitud
