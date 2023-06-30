@@ -1,0 +1,85 @@
+--CAMILA
+create or replace trigger tr_eliminarBoletas
+before delete
+on sepelio
+for each row
+begin
+    delete from boleta where id_tipo_prestacion=:old.id_tipo_prestacion;
+end;
+
+create or replace trigger tr_eliminarCitt
+before delete
+on citt
+for each row
+begin
+    delete from citt where id_citt=:old.id_citt;
+end;
+
+create or replace trigger tr_eliminarPrestacion_economica
+before delete
+on solicitud
+for each row
+begin
+    delete from prestacion_economica where :old.id_solicitud=id_solicitud;
+end;
+
+--PROCEDIMIENTO
+create or replace procedure pr_procesar_solicitud(p_dni in number, p_ruc in number, 
+                                                  p_tipo_prestacion in char)
+is
+    v_tipo_solicitante char;
+    v_id_solicitud number;
+    v_ruc number;
+    v_ruc_correcto number;
+    v_id_prestacion char;
+    no_existe_ruc exception;
+    cursor c_ruc is select ruc from empleador;
+    tipo_prestacion_invalido exception;
+    ruc_no_coincide exception;
+begin
+    select tipo_solicitante into v_tipo_solicitante from persona where dni=p_dni;
+    select nvl(max(id_solicitud)+1,0) into v_id_solicitud from solicitud;
+    open c_ruc;
+    loop
+        fetch c_ruc into v_ruc;
+        if c_ruc%notfound then
+            raise no_existe_ruc;
+            exit;
+        end if;
+        if v_ruc=p_ruc then
+            --con la function hallamos el ruc del asegurado con su p_dni y validos que sea igual al ruc ingreso, sino levantamos bandera
+            v_ruc_correcto:=f_buscar_ruc_persona(p_dni);
+            if v_ruc=v_ruc_correcto then
+                exit;
+            else
+                raise ruc_no_coincide;
+            end if;
+        end if;
+    end loop;
+    close c_ruc;
+    if p_tipo_prestacion<>'S' and p_tipo_prestacion<>'I' and p_tipo_prestacion<>'L' and 
+        p_tipo_prestacion<>'M' then
+        raise tipo_prestacion_invalido;
+    end if;
+    --Inseratmos en tabla solicitud
+    insert into solicitud
+    values(v_id_solicitud,v_tipo_solicitante,v_id_prestacion,p_dni,p_ruc);
+exception
+    when no_existe_ruc then
+        dbms_output.put_line('No se procesa la solicitud: Ingrese un RUC valido');
+    when tipo_prestacion_invalido then
+        dbms_output.put_line('No se procesa la solicitud: Ingrese un tipo de solicitud valido');
+    when ruc_no_coincide then
+        dbms_output.put_line('No se procesa la solicitud: El RUC que ingresó no es correcto');
+end;
+
+--FUNCITON
+create or replace function f_cantidad_asegurados_empresa(p_ruc in number)
+    return number
+is
+    v_cantidad number:=0;
+begin
+    select count(*) into v_cantidad from asegurado
+    where ruc=p_ruc;
+    return v_cantidad;
+end;

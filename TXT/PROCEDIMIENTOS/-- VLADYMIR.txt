@@ -1,0 +1,73 @@
+-- VLADYMIR
+
+create or replace function f_buscar_ruc_persona(p_dni in number)
+    return number
+is
+    v_ruc number;
+    cursor c_asegurado is select dni_asegurado,ruc from asegurado;
+    cursor c_derechoHabiente is select dni_derechohabiente,dni_asegurado from derechohabiente;
+begin
+    for list_asegurado in c_asegurado loop
+        if list_asegurado.dni_asegurado=p_dni then
+            return list_asegurado.ruc;
+        end if;
+    end loop;
+    for list_derechoHabiente in  c_derechoHabiente loop
+        if list_derechoHabiente.dni_derechohabiente=p_dni then
+            select ruc into v_ruc from asegurado
+            where dni_asegurado=list_derechoHabiente.dni_asegurado;
+            return v_ruc;
+        end if;
+    end loop;
+exception
+    when no_data_found then
+        dbms_output.put_line('El dni ingresado es incorrecto.');
+end;
+
+create or replace procedure pr_insertarCitt(p_id_citt in number,p_inicio_descanso in date,
+                                            p_fin_descanso in date, p_id_tipo_prestacion in char)
+is
+    v_num_dias number;
+    fechas_invalidas exception;
+begin
+    v_num_dias:=trunc(p_fin_descanso)-trunc(p_inicio_descanso);
+    if v_num_dias<0 then
+        raise fechas_invalidas;
+    end if;
+    insert into citt values(p_id_citt,p_inicio_descanso,p_fin_descanso,v_num_dias);
+    update incapacidad_temporal set id_citt=p_id_citt where p_id_tipo_prestacion=id_tipo_prestacion;
+exception
+    when fechas_invalidas then
+        dbms_output.put_line('No se procesar la solicitud: La fecha de descanso final debe ser mayor a la incial.');
+end;
+
+
+create or replace trigger tr_actualizar_prestacion_incapcidad
+after update of  id_citt
+on incapacidad_temporal
+for each row
+declare 
+    v_inicio_descanso date;
+    v_fin_descanso date;
+begin
+    select inicio_descanso,fin_descanso into v_inicio_descanso,v_fin_descanso
+    from citt where :new.id_citt=id_citt;
+    update prestacion_economica set inicio_subsidio=v_inicio_descanso,fin_subsidio=v_fin_descanso
+    where :new.id_tipo_prestacion=id_tipo_prestacion;
+end;
+
+create or replace trigger tr_actualizarMontoPrestacionMaternidad
+after insert on maternidad
+for each row
+declare 
+    v_sueldo number;
+    v_id_solicitud char;
+begin
+    select id_solicitud into v_id_solicitud from prestacion_economica
+    where :new.id_tipo_prestacion=id_tipo_prestacion;
+    select sueldo into v_sueldo from asegurado 
+    where dni_asegurado=(select dni from solicitud where id_solicitud=v_id_solicitud);                                              
+    update prestacion_economica set monto=v_sueldo 
+    where :new.id_tipo_prestacion=id_tipo_prestacion;
+end;
+

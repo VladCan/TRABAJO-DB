@@ -1,0 +1,90 @@
+--RODOLFO
+create or replace trigger tr_validarCondicion
+before insert on condicion
+for each row
+declare
+    v_id_tipo_prestacion char:=:new.id_tipo_prestacion;
+    v_id_solicitud number;
+    v_tipo_prestacion char;
+begin
+    if :new.cumplimiento='D' then
+    -- pks de las tablas
+        select id_solicitud,tipo_prestacion into v_id_solicitud,v_tipo_prestacion
+        from prestacion_economica where v_id_tipo_prestacion=id_tipo_prestacion;
+        
+        -- BORRAMOS EN SU RESPECTIVA TABLA DE ACUERDO AL TIPO DE PRESTACION
+        case v_tipo_prestacion
+        when 'S' then delete from sepelio where id_tipo_prestacion=v_id_tipo_prestacion;--crear trigger para eliminar boletas registradas
+        when 'I' then delete from incapacidad_temporal where id_tipo_prestacion=v_id_tipo_prestacion;--crear trigger para eliminar citts registrados
+        when 'L' then delete from lactancia where id_tipo_prestacion=v_id_tipo_prestacion;
+        when 'M' then delete from maternidad where id_tipo_prestacion=v_id_tipo_prestacion;
+        end case;
+        -- BORRAMOS LA SOLICITUD Y SU PRESTACION ECONOMICA
+        delete from solicitud where id_solicitud=v_id_solicitud;--se ejecuta trigger para borrar prestacion
+        -- YA NO INSERTAMOS LA CONDICION PORQUE NO SE CUMPLE 
+        raise_application_error(-2000,'No se cumple aguna condicion; por lo tanto, la solicitud no procede');
+    end if;
+end;
+
+
+create or replace trigger tr_actualizarMontoPrestacionIncapacidad
+after insert on citt
+for each row
+declare
+    v_sueldo number;
+    v_id_solicitud char;
+    v_id_tipo_prestacion char;
+begin
+    select id_tipo_prestacion into v_id_tipo_prestacion
+    from incapacidad_temporal where :new.id_citt=id_citt;
+    select id_solicitud into v_id_solicitud from prestacion_economica
+    where v_id_tipo_prestacion=v_id_tipo_prestacion;
+     select sueldo into v_sueldo from asegurado 
+     where dni_asegurado=(select dni from solicitud where id_solicitud=v_id_solicitud);
+     update prestacion_economica set monto=v_sueldo 
+     where id_tipo_prestacion=v_id_tipo_prestacion;
+end;
+
+create or replace trigger tr_insertar_id_prestaciones
+after insert
+on prestacion_economica
+for each row
+begin
+    case :new.tipo_prestacion
+    when 'S' then insert into sepelio values (:new.tipo_prestacion);--sepelio
+    when 'I' then insert into incapacidad_temporal values (:new.tipo_prestacion,0);--UPDATE ID_CITT
+    end case;
+end;
+
+
+create or replace function f_cantidad_derechohabientes_asegurado(p_dni_asegurado in number)
+    return number
+is
+    v_cantidad number:=0;
+begin
+    select count(*) into v_cantidad from derechohabiente
+    where dni_asegurado=p_dni_asegurado;
+    return v_cantidad;
+end;
+
+
+create or replace procedure pr_lactancia_maternidad(p_id_tipo_prestacion in char,
+                         p_tipo_prestacion in char,p_id_solicitud in number,p_certificado_nacimiento in date)
+is
+    tipo_prestacion_invalido exception;
+    v_vinculo_laboral char;
+begin
+     if p_tipo_prestacion='M' then--FALTA ACTUALIZAR MONTO CON SULEDO 
+        insert into maternidad values (p_id_tipo_prestacion,p_certificado_nacimiento);
+     elsif p_tipo_prestacion='L' then-- CREAR MONTO FIJO DADO POR EL GOBIENRO
+        select tipo_solicitante into v_vinculo_laboral from solicitud where p_id_solicitud=id_solicitud;
+        insert into lactancia values (p_id_tipo_prestacion,p_certificado_nacimiento,v_vinculo_laboral);
+     else
+        raise tipo_prestacion_invalido;
+     end if;
+     
+exception
+    when tipo_prestacion_invalido then
+        dbms_output.put_line('No se procesa la solicitud: Ingrese un tipo de solicitud valido');
+end;
+

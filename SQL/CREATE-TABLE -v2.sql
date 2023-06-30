@@ -1,0 +1,279 @@
+--ALTER TABLE condicion
+--  ADD CONSTRAINT condicion_prestacion_economica_fk FOREIGN KEY ( id_tipo_prestacion )
+--        REFERENCES prestacion_economica ( id_tipo_prestacion )
+--    NOT DEFERRABLE;
+--ALTER TABLE requisito
+--    ADD CONSTRAINT requisito_prestacion_economica_fk FOREIGN KEY ( id_tipo_prestacion )
+--        REFERENCES prestacion_economica ( id_tipo_prestacion )
+--    NOT DEFERRABLE;
+
+
+
+CREATE TABLE asegurado (
+    dni_asegurado NUMBER(8) NOT NULL,
+    ruc           NUMBER(11) NOT NULL,
+	sueldo		  NUMBER(10,2) NOT NULL
+)
+LOGGING;
+
+ALTER TABLE asegurado ADD CONSTRAINT asegurado_pk PRIMARY KEY ( dni_asegurado );
+
+
+
+CREATE TABLE condicion (
+    id_condicion NUMBER(10) NOT NULL,
+	tipo_prestacion CHAR(3) NOT NULL,
+    descripcion  VARCHAR2(250 BYTE) NOT NULL,
+    cumplimiento CHAR(1 BYTE) NOT NULL
+)
+LOGGING;
+
+ALTER TABLE condicion
+    ADD CONSTRAINT condicion_pk PRIMARY KEY ( id_condicion );
+
+CREATE TABLE departamento (
+    id_departamento VARCHAR2(2 BYTE) NOT NULL,
+    nombre          VARCHAR2(25 BYTE) NOT NULL
+)
+LOGGING;
+
+ALTER TABLE departamento
+    ADD CONSTRAINT departamento_pk PRIMARY KEY ( id_departamento );
+
+CREATE TABLE derechohabiente (
+    dni_derechohabiente NUMBER(10) NOT NULL,
+    dni_asegurado       NUMBER(8) NOT NULL,
+    parentesco          CHAR(1 BYTE) NOT NULL
+)
+LOGGING;
+
+
+ALTER TABLE derechohabiente
+    ADD CONSTRAINT derechohabiente_pk PRIMARY KEY ( dni_derechohabiente );
+
+CREATE TABLE distrito (
+    id_distrito  VARCHAR2(6 BYTE) NOT NULL,
+    nombre       VARCHAR2(60 BYTE) NOT NULL,
+    id_provincia VARCHAR2(4 BYTE) NOT NULL
+)
+LOGGING;
+
+
+ALTER TABLE distrito
+    ADD CONSTRAINT id_distrito_pk PRIMARY KEY ( id_distrito );
+
+CREATE TABLE empleador (
+    ruc          NUMBER(11) NOT NULL,
+    razon_social VARCHAR2(100 BYTE) NOT NULL,
+    direccion    VARCHAR2(150 BYTE) NOT NULL,
+    id_ubigeo    VARCHAR2(6 BYTE) NOT NULL
+)LOGGING;
+
+ALTER TABLE empleador
+    ADD CONSTRAINT empleador_pk PRIMARY KEY ( ruc );
+
+CREATE TABLE incapacidad_temporal (
+    id_incapacidad_temporal NUMBER(10) NOT NULL,
+    id_solicitud            NUMBER(10) NOT NULL,
+    id_citt                 NUMBER(10) NOT NULL,
+    inicio_descanso         DATE NOT NULL,
+    fin_descanso            DATE NOT NULL,
+    num_dias                NUMBER NOT NULL
+)
+LOGGING;
+
+
+ALTER TABLE incapacidad_temporal
+    ADD CONSTRAINT citt_pk PRIMARY KEY ( id_incapacidad_temporal );
+
+CREATE TABLE lactancia (
+    id_lactancia           NUMBER(10) NOT NULL,
+    id_solicitud           NUMBER(10) NOT NULL,
+    certificado_nacimiento DATE NOT NULL,
+    vinculo_laboral        CHAR(1 BYTE) NOT NULL
+)
+LOGGING;
+
+
+
+ALTER TABLE lactancia
+    ADD CONSTRAINT lactancia_pk PRIMARY KEY ( id_lactancia );
+
+CREATE TABLE maternidad (
+    id_maternidad          NUMBER(10) NOT NULL,
+    id_solicitud           NUMBER(10) NOT NULL,
+    certificado_nacimiento DATE NOT NULL
+)
+LOGGING;
+
+
+ALTER TABLE maternidad
+    ADD CONSTRAINT maternidad_pk PRIMARY KEY ( id_maternidad );
+
+CREATE TABLE persona (
+    dni              NUMBER(8) NOT NULL,
+    tipo_solicitante CHAR(1 BYTE) NOT NULL,
+    nombres          VARCHAR2(100 BYTE) NOT NULL,
+    ape_pat          VARCHAR2(50 BYTE) NOT NULL,
+    ape_mat          VARCHAR2(50 BYTE) NOT NULL,
+    fecha_nac        DATE NOT NULL,
+    direccion        VARCHAR2(150 BYTE) NOT NULL,
+    id_ubigeo        VARCHAR2(6 BYTE) NOT NULL
+)LOGGING;
+
+
+ALTER TABLE persona
+    ADD CONSTRAINT persona_pk PRIMARY KEY ( dni );
+
+CREATE TABLE prestacion_economica (
+    id_prestacion   NUMBER NOT NULL,
+    tipo_prestacion CHAR(3 BYTE) NOT NULL,
+    nombre          VARCHAR2(25 BYTE) NOT NULL,
+    monto           NUMBER(10, 2)
+)LOGGING;
+
+
+ALTER TABLE prestacion_economica
+    ADD CONSTRAINT id_tipo_prestacion_pk PRIMARY KEY ( tipo_prestacion );
+	
+--COMMENT ON COLUMN "GRUPO"."PRESTACION_ECONOMICA"."MONTO" IS 'Si es null, se calcula con el sueldo';
+
+CREATE TABLE provincia (
+    id_provincia    VARCHAR2(4 BYTE) NOT NULL,
+    nombre          VARCHAR2(30 BYTE) NOT NULL,
+    id_departamento VARCHAR2(2 BYTE) NOT NULL
+)LOGGING;
+
+
+
+ALTER TABLE provincia
+    ADD CONSTRAINT provincia_pk PRIMARY KEY ( id_provincia );
+
+CREATE TABLE requisito (
+    id_requisito NUMBER(10) NOT NULL,
+	tipo_prestacion CHAR(3) NOT NULL,
+    descripcion  VARCHAR2(250 BYTE) NOT NULL,
+    cumplimiento CHAR(1 BYTE) NOT NULL
+)LOGGING;
+
+
+ALTER TABLE requisito
+    ADD CONSTRAINT requisito_pk PRIMARY KEY ( id_requisito );
+
+CREATE TABLE sepelio (
+    id_seperlio  NUMBER(10) NOT NULL,
+    id_solicitud NUMBER(10) NOT NULL,
+    id_boleta    NUMBER(5) NOT NULL,
+    razon_social VARCHAR2(30 BYTE) NOT NULL,
+    ruc          NUMBER(11) NOT NULL,
+    importe      NUMBER(5, 2) NOT NULL,
+    fecha        DATE
+)LOGGING;
+
+
+ALTER TABLE sepelio
+    ADD CONSTRAINT sepelio_pk PRIMARY KEY ( id_seperlio );
+
+CREATE TABLE solicitud (
+    id_solicitud     NUMBER(10) NOT NULL,
+    tipo_solicitante CHAR(1 BYTE) NOT NULL,
+    tipo_prestacion  CHAR(3 BYTE) NOT NULL,
+    dni              NUMBER(8) NOT NULL,
+    ruc              NUMBER(11) NOT NULL,
+    fecha            DATE NOT NULL,
+    estado           CHAR(1 BYTE) NOT NULL
+)
+LOGGING;
+
+ALTER TABLE solicitud
+    ADD CONSTRAINT solicitud_pk PRIMARY KEY ( id_solicitud );
+
+CREATE TABLE ubigeo (
+    id_ubigeo       VARCHAR2(6 BYTE) NOT NULL,
+    id_departamento VARCHAR2(2 BYTE) NOT NULL,
+    id_provincia    VARCHAR2(4 BYTE) NOT NULL,
+    id_distrito     VARCHAR2(6 BYTE) NOT NULL
+)
+LOGGING;
+
+ALTER TABLE ubigeo
+    ADD CONSTRAINT ubigeo_pk PRIMARY KEY ( id_ubigeo );
+
+ALTER TABLE asegurado
+    ADD CONSTRAINT asegurado_persona_fk FOREIGN KEY ( dni_asegurado )
+        REFERENCES persona ( dni );
+        REFERENCES persona ( dni );
+
+ALTER TABLE asegurado
+    ADD CONSTRAINT asegurado_ruc_empleador_fk FOREIGN KEY ( ruc )
+        REFERENCES empleador ( ruc );
+
+ALTER TABLE condicion
+    ADD CONSTRAINT condicion_prestacion_economica_condicion_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion );
+
+ALTER TABLE derechohabiente
+    ADD CONSTRAINT derechohabiente_asegurado_fk FOREIGN KEY ( dni_asegurado )
+        REFERENCES asegurado ( dni_asegurado );
+
+ALTER TABLE derechohabiente
+    ADD CONSTRAINT derechohabiente_persona_fk FOREIGN KEY ( dni_derechohabiente )
+        REFERENCES persona ( dni );
+
+ALTER TABLE distrito
+    ADD CONSTRAINT distrito_provincia_fk FOREIGN KEY ( id_provincia )
+        REFERENCES provincia ( id_provincia );
+
+ALTER TABLE empleador
+    ADD CONSTRAINT empleador_ubigeo_fk FOREIGN KEY ( id_ubigeo )
+        REFERENCES ubigeo ( id_ubigeo );
+
+ALTER TABLE incapacidad_temporal
+    ADD CONSTRAINT incapacidad_temporal_solicitud_fk FOREIGN KEY ( id_solicitud )
+        REFERENCES solicitud ( id_solicitud );
+
+ALTER TABLE lactancia
+    ADD CONSTRAINT lactancia_solicitud_fk FOREIGN KEY ( id_solicitud )
+        REFERENCES solicitud ( id_solicitud );
+
+ALTER TABLE maternidad
+    ADD CONSTRAINT maternidad_solicitud_fk FOREIGN KEY ( id_solicitud )
+        REFERENCES solicitud ( id_solicitud );
+
+ALTER TABLE persona
+    ADD CONSTRAINT persona_ubigeo_fk FOREIGN KEY ( id_ubigeo )
+        REFERENCES ubigeo ( id_ubigeo );
+
+ALTER TABLE requisito
+    ADD CONSTRAINT prestacion_economica_requisito_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion );
+
+ALTER TABLE provincia
+    ADD CONSTRAINT provincia_departamento_fk FOREIGN KEY ( id_departamento )
+        REFERENCES departamento ( id_departamento );
+
+ALTER TABLE sepelio
+    ADD CONSTRAINT sepelio_solicitud_fk FOREIGN KEY ( id_solicitud )
+        REFERENCES solicitud ( id_solicitud );
+
+ALTER TABLE solicitud
+    ADD CONSTRAINT solicitud_persona_fk FOREIGN KEY ( dni )
+        REFERENCES persona ( dni );
+
+ALTER TABLE solicitud
+    ADD CONSTRAINT solicitud_prestacion_economica_fk FOREIGN KEY ( tipo_prestacion )
+        REFERENCES prestacion_economica ( tipo_prestacion );
+
+ALTER TABLE ubigeo
+    ADD CONSTRAINT ubigeo_departamento_fk FOREIGN KEY ( id_departamento )
+        REFERENCES departamento ( id_departamento );
+
+ALTER TABLE ubigeo
+    ADD CONSTRAINT ubigeo_distrito_fk FOREIGN KEY ( id_distrito )
+        REFERENCES distrito ( id_distrito );
+
+ALTER TABLE ubigeo
+    ADD CONSTRAINT ubigeo_provincia_fk FOREIGN KEY ( id_provincia )
+        REFERENCES provincia ( id_provincia );
+
+

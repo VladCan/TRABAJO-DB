@@ -1,7 +1,7 @@
 CREATE TABLE asegurado (
     dni_asegurado         NUMBER(8) NOT NULL,
 	ruc           NUMBER(11) NOT NULL,
-	sueldo			NUMBER(10,2) NOT NULL
+	sueldo			NUMBER(5,2) NOT NULL
 )
 LOGGING;
 
