@@ -1,0 +1,17 @@
+SELECT * FROM solicitud;
+
+DESCRIBE solicitud;
+EXECUTE pr_procesar_solicitud(56789045,20100367395,'M');
+EXECUTE pr_procesar_solicitud(65798129,20100047056,'I');
+EXECUTE pr_procesar_solicitud(12347894,20100047056,'S');
+EXECUTE pr_procesar_solicitud(45326789,20109072177,'L');
+EXECUTE pr_procesar_solicitud(45678934,20109072177,'I');
+EXECUTE pr_procesar_solicitud(45678923,20100911958,'M');
+EXECUTE pr_procesar_solicitud(56789034,20100911958,'L');
+EXECUTE pr_procesar_solicitud(67901234,20100047056,'M');
+EXECUTE pr_procesar_solicitud(45789023,20109072177,'I');
+EXECUTE pr_procesar_solicitud(84732164,20100047056,'S');
+EXECUTE pr_procesar_solicitud(34567892,20100911958,'L');
+EXECUTE pr_procesar_solicitud(89631276,20100053455,'I');
+EXECUTE pr_procesar_solicitud(67904321,20109072177,'M');
+EXECUTE pr_procesar_solicitud(56239087,20109072177,'S');

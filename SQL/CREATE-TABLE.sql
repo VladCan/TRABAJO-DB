@@ -21,6 +21,7 @@ ALTER TABLE boleta ADD CONSTRAINT boleta_pk PRIMARY KEY ( id_boleta );
 
 CREATE TABLE citt (
     id_citt         NUMBER(10) NOT NULL,
+	id_tipo_prestacion    CHAR(11) NOT NULL,
     inicio_descanso DATE NOT NULL,
     fin_descanso    DATE NOT NULL,
     num_dias        NUMBER NOT NULL
@@ -77,8 +78,7 @@ LOGGING;
 ALTER TABLE empleador ADD CONSTRAINT empleador_pk PRIMARY KEY ( ruc );
 
 CREATE TABLE incapacidad_temporal (
-    id_tipo_prestacion         CHAR(11 BYTE) NOT NULL,
-    id_citt                 NUMBER(10) NOT NULL
+    id_tipo_prestacion         CHAR(11 BYTE) NOT NULL
 )
 LOGGING;
 
@@ -86,8 +86,8 @@ ALTER TABLE incapacidad_temporal ADD CONSTRAINT incapacidad_temporal_pk PRIMARY 
 
 CREATE TABLE lactancia (
     id_tipo_prestacion         CHAR(11 BYTE) NOT NULL,
-	certificado_nacimiento  DATE NOT NULL,
-    vinculo_laboral         CHAR(1 BYTE) NOT NULL
+	certificado_nacimiento  DATE,
+    vinculo_laboral         CHAR(1 BYTE) 
 )
 LOGGING;
 
@@ -95,8 +95,7 @@ ALTER TABLE lactancia ADD CONSTRAINT lactancia_pk PRIMARY KEY ( id_tipo_prestaci
 
 CREATE TABLE maternidad (
     id_tipo_prestacion         CHAR(11 BYTE) NOT NULL,
-    certificado_nacimiento  DATE NOT NULL
-
+    certificado_nacimiento  DATE 
 )
 LOGGING;
 
@@ -120,7 +119,7 @@ CREATE TABLE prestacion_economica (
     id_tipo_prestacion         CHAR(11 BYTE) NOT NULL,
     id_solicitud            NUMBER(10) NOT NULL,
 	tipo_prestacion	        CHAR(1BYTE) NOT NULL,
-    monto                   NUMBER(5, 2) NOT NULL,
+    monto                   NUMBER(15, 2) NOT NULL,
     inicio_subsidio         DATE NOT NULL,
     fin_subsidio            DATE NOT NULL
 )
@@ -220,9 +219,9 @@ ALTER TABLE empleador
         REFERENCES ubigeo ( id_ubigeo )
     NOT DEFERRABLE;
 
-ALTER TABLE incapacidad_temporal
-    ADD CONSTRAINT incapacidad_temporal_citt_fk FOREIGN KEY ( id_citt )
-        REFERENCES citt ( id_citt )
+ALTER TABLE citt
+    ADD CONSTRAINT citt_incapacidad_temporal_fk FOREIGN KEY ( id_tipo_prestacion )
+        REFERENCES incapacidad_temporal ( id_tipo_prestacion )
     NOT DEFERRABLE;
 
 ALTER TABLE incapacidad_temporal

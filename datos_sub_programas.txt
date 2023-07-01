@@ -1,0 +1,39 @@
+EXECUTE pr_procesar_solicitud(56789045,20100367395,'M');
+EXECUTE pr_procesar_solicitud(65798129,20100047056,'I');
+EXECUTE pr_procesar_solicitud(12347894,20100047056,'S');
+EXECUTE pr_procesar_solicitud(45326789,20109072177,'L');
+EXECUTE pr_procesar_solicitud(45678934,20109072177,'I');
+EXECUTE pr_procesar_solicitud(45678923,20100911958,'M');
+EXECUTE pr_procesar_solicitud(56789034,20100911958,'L');
+EXECUTE pr_procesar_solicitud(67901234,20100047056,'M');
+EXECUTE pr_procesar_solicitud(45789023,20109072177,'I');
+EXECUTE pr_procesar_solicitud(84732164,20100047056,'S');
+EXECUTE pr_procesar_solicitud(34567892,20100911958,'L');
+EXECUTE pr_procesar_solicitud(89631276,20100053455,'I');
+EXECUTE pr_procesar_solicitud(67904321,20109072177,'M');
+EXECUTE pr_procesar_solicitud(56239087,20109072177,'S');
+
+
+
+
+
+
+
+ EXECUTE pr_procesar_prestacion('S',102);
+ EXECUTE pr_procesar_prestacion('I',101);
+
+
+
+
+EXECUTE  pr_insertarCitt(1520,'I101',to_date('2022/05/10','YYYY/MM/DD'),to_date('2022/06/18','YYYY/MM/DD'));
+EXECUTE  pr_insertarCitt(1520,'I101',to_date('2022/05/10','YYYY/MM/DD'),to_date('2022/06/05','YYYY/MM/DD'));
+EXECUTE  pr_insertarCitt(1521,'I101',to_date('2022/06/05','YYYY/MM/DD'),to_date('2022/06/18','YYYY/MM/DD'));
+
+
+
+EXECUTE pr_lactancia_maternidad('M',100,TO_DATE('2023/03/20','YYYY/MM/DD'));
+EXECUTE pr_lactancia_maternidad('L',103,TO_DATE('2023/03/10','YYYY/MM/DD'));
+
+
+
+insert into boleta values(20162703,21479026574,'FUNERARIA ABC',TO_DATE('2022/11/13','YYYY/MM/DD'),950,'S102');
